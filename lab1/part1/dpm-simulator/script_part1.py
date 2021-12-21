@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 fig = plt.gcf() #variable created to manage size and characteristics of figures
 fig.set_size_inches(35, 25, forward=True)
 
-file = open("results_wl.txt","w+")
+file = open("results_w2.txt","w+")
 savings = list() #list that contains value of energy consumed with different timeout values
 percentage_saved = list() #list of values of percentage of energy saved
 
 for i in range (500):
-    stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl example/wl.txt')
+    stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
     output = stream.read() #output of the command saved in this variable
     file.write("simulator with timeout t=%d \r\n\n" % i)
     file.write(output)
@@ -20,11 +20,11 @@ for i in range (500):
 
 file.close()
 
-file_savings = open("dpm_energy_wl.txt","w+")
+file_savings = open("dpm_energy_w2.txt","w+")
 
 #file_savings.write("timeout value,  Energy w DPM \n")
 
-with open('results_wl.txt') as temp_f:
+with open('results_w2.txt') as temp_f:
     datafile = temp_f.readlines()
     i = 0
     for line in datafile:                                        #for each line in the file
@@ -49,7 +49,7 @@ min_pos = savings.index(min(savings))                            #by searching i
 
 print("Best DPM  timeout=%d, Energy w DPM= %f" % (min_pos , min_value))
 
-file_best = open("best_dpm_wl.txt","w")
+file_best = open("best_dpm_w2.txt","w")
 
 file_best.write("Best DPM for the associated timeout value\n Timeout: "+str(min_pos)+", Energy consumed: " +str(min_value))
 
@@ -61,45 +61,35 @@ y1 = list()
 y2 = list()
 
 n = 0
-with open('dpm_energy_wl.txt') as temp_f:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
+with open('dpm_energy_w2.txt') as temp_f:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
     datafile = temp_f.readlines()           #We copy the pair respectively in x and y
     for line in datafile:
         value_list = line.split(",")
-        if ((n%10) == 0):
-            x.append(value_list[0])         #add a value every 10 to reduce overhead in the printed figure
-            y1.append(value_list[-1])
+        if ((n%10) == 0):                   #add a value every 10 to reduce overhead in the printed figure
+            x.append(value_list[0])         #save in x value of timeout 
+            y1.append(value_list[-1])       #save in y1 the value of the energy consumed with DPM
             y2.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
         n = n+1
 
 
-x = np.array(x)
+x = np.array(x)     #transform them from list to array (maybe useless)
 y1 = np.array(y1)
 y2 = np.array(y2)
 
-#cubic_interploation_model = interp1d(x, y1, kind = "cubic")
-#cubic_interploation_model = interp1d(x, y2, kind = "cubic")
-
-#x_final = np.linspace(x.min(), x.max(), 500)
-#y1_final = cubic_interploation_model(x_final)
-#y2_final = cubic_interploation_model(x_final)
-
-#plt.subplot(nrows,ncols,nsubplot)
-#plt.subplot(2, 1, 1)
 plt.plot(x, y1)
 plt.title('Power consumption associated to timeout value')
 plt.xlabel('timeout')
 plt.ylabel('Energy consumed')
 
-plt.savefig('dpm_wl.png')
+plt.savefig('dpm_w2.png')
 
-plt.clf()
+plt.clf() #clear the plt to print next figure
 
-#plt.subplot(2, 1, 2)
 plt.plot(x, y2)
 plt.title('Energy saved')
 plt.xlabel('timeout')
 plt.ylabel('energy saved')
 
-plt.savefig('saved_energy_wl.png')
+plt.savefig('saved_energy_w2.png')
 
 #plt.show()
