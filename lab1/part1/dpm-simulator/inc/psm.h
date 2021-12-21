@@ -19,7 +19,7 @@
  * @{
  */
 /** time unit */
-#define PSM_TIME_UNIT   1e-03
+#define PSM_TIME_UNIT   1e-06
 /** power unit */
 #define PSM_POWER_UNIT  1e-03
 /** energy unit */
