@@ -13,10 +13,19 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
         }
 
         // set policy to timeout and get timeout value
-        if(strcmp(argv[cur], "-t") == 0) {
+        if(strcmp(argv[cur], "-t1") == 0) {
             *selected_policy = DPM_TIMEOUT;
             if(argc > cur + 1) {
-                tparams->timeout = atof(argv[++cur]);
+                tparams->timeout_idle = atof(argv[++cur]);
+            }
+            else return	0;
+        }
+
+         // set policy to timeout and get timeout value
+        if(strcmp(argv[cur], "-t2") == 0) {
+            *selected_policy = DPM_TIMEOUT;
+            if(argc > cur + 1) {
+                tparams->timeout_sleep = atof(argv[++cur]);
             }
             else return	0;
         }
@@ -57,7 +66,8 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
 void print_command_line(){
 	printf("\n******************************************************************************\n");
 	printf(" DPM simulator: \n");
-	printf("\t-t <timeout>: timeout of the timeout policy\n");
+	printf("\t-t1 <timeout_idle>: timeout for idle timeout policy\n");
+    printf("\t-t2 <timeout_sleep>: timeout for sleep timeout policy\n");
 	printf("\t-h <Value1> …<Value5> <Threshold1> <Threshold2>: history-based policy \n");
 	printf("\t   <Value1-5> value of coefficients\n");
 	printf("\t   <Threshold1-2> predicted time thresholds\n");

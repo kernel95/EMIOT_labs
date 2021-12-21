@@ -36,7 +36,8 @@ typedef int dpm_policy_t;
  */
 typedef struct {
     /* Day2: you can add/change stuff here */
-    double timeout;
+    double timeout_idle;
+    double timeout_sleep;
 } dpm_timeout_params;
 
 /**
