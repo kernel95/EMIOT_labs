@@ -46,7 +46,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 
             if (curr_state != prev_state) {
                 if(!psm_tran_allowed(psm, prev_state, curr_state)) {
-                    printf("[error] prohibited transition!\n");
+                    printf("[error] prohibited transition! Between %d and %d. \n", prev_state, curr_state);
                     return 0;
                 }
                 e_tran = psm_tran_energy(psm, prev_state, curr_state);
@@ -94,18 +94,29 @@ int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
 
         case DPM_TIMEOUT:
             /* Day 2: EDIT */
-             case DPM_TIMEOUT:
-            /* Day 2: EDIT */
-            if (curr_time > idle_period.start + tparams.timeout_idle) {
-                if(curr_time > idle_period.start + tparams.timeout_sleep) 
-                    *next_state = PSM_STATE_SLEEP;
-                else    
+            /*if(curr_time > idle_period.start + tparams.timeout[0]) {
+                *next_state = PSM_STATE_IDLE;
+            } else {
+                *next_state = PSM_STATE_ACTIVE;
+            }
+            break;*/
+
+            if((curr_time > idle_period.start + tparams.timeout[0])){
+                
+
+                if((curr_time > idle_period.start + tparams.timeout[1]) ){
+                    if(*next_state==PSM_STATE_IDLE) 
+                        *next_state = PSM_STATE_ACTIVE; // guly but this is because we cannot pass from idle to sleep
+                    else
+                        *next_state = PSM_STATE_SLEEP;
+                }
+                else
                     *next_state = PSM_STATE_IDLE;
+
             } else {
                 *next_state = PSM_STATE_ACTIVE;
             }
             break;
-            
 
         case DPM_HISTORY:
             /* Day 3: EDIT */
@@ -120,6 +131,7 @@ int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
             printf("[error] unsupported policy\n");
             return 0;
     }
+    //printf("At time %lf the state is: %d \n", curr_time, *next_state);
 	return 1;
 }
 

@@ -12,6 +12,9 @@
  * @defgroup dpm_params Parameters of DPM policies
  * @{
  */
+
+/** num of params for timeout-based policy */
+#define DPM_N_TIMEOUT 2
 /** history window size for history-based policies */
 #define DPM_HIST_WIND_SIZE 5
 /** number of thresholds for history-based policies */
@@ -36,8 +39,7 @@ typedef int dpm_policy_t;
  */
 typedef struct {
     /* Day2: you can add/change stuff here */
-    double timeout_idle;
-    double timeout_sleep;
+    double timeout[DPM_N_TIMEOUT]; // array of timeouts 0 timeout idle 1 timeout sleep
 } dpm_timeout_params;
 
 /**
@@ -57,7 +59,7 @@ typedef struct {
  * @param sel_policy: the selected policy type
  * @param tparams: the timeout policy parameters (if selected)
  * @param hparams: the history policy parameters (if selected)
- * @param fwl: the worload filename
+ * @param fwl: the workload filename
  *
  * @return 1 on success, 0 on failure
  *
