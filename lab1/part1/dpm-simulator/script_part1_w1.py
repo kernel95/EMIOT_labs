@@ -5,26 +5,27 @@ import matplotlib.pyplot as plt
 #from scipy.interpolate import interp1d
 
 fig = plt.gcf() #variable created to manage size and characteristics of figures
-fig.set_size_inches(18, 18, forward=True) #25 e 35 prima
+fig.set_size_inches(20, 10, forward=True) #25 e 35 prima
 
-file = open("simulator_results/results_wl.txt","w+")
+file = open("simulator_results/results_w1.txt","w+")
 savings = list() #list that contains value of energy consumed with different timeout values
 percentage_saved = list() #list of values of percentage of energy saved
 
-for i in range (500):
-    stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl example/wl.txt')
-    output = stream.read() #output of the command saved in this variable
-    file.write("simulator with timeout t=%d \r\n\n" % i)
-    file.write(output)
-    file.write("\n\n")
+for i in range (120000):
+     if (i%50 == 0):
+        stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_1.txt')
+        output = stream.read() #output of the command saved in this variable
+        file.write("simulator with timeout t=%d \r\n\n" % i)
+        file.write(output)
+        file.write("\n\n")
 
 file.close()
 
-file_savings = open("Energy_w_dpm/dpm_energy_wl.txt","w+")
+file_savings = open("Energy_w_dpm/dpm_energy_w1.txt","w+")
 
 #file_savings.write("timeout value,  Energy w DPM \n")
 
-with open('simulator_results/results_wl.txt') as temp_f:
+with open('simulator_results/results_w1.txt') as temp_f:
     datafile = temp_f.readlines()
     i = 0
     for line in datafile:                                        #for each line in the file
@@ -42,14 +43,12 @@ with open('simulator_results/results_wl.txt') as temp_f:
             savings.append(float(value_energy))                  #Save value of energy consumed for each timeout values in a list
             i += 1
 
-print (Energy_wo_dpm)
-
 min_value = min(savings)                                         #find the smallest amount of energy consumed
 min_pos = savings.index(min(savings))                            #by searching its position we know also the value given to the associated timeout
 
 print("Best DPM  timeout=%d, Energy w DPM= %f" % (min_pos , min_value))
 
-file_best = open("best_result/best_dpm_wl.txt","w")
+file_best = open("best_result/best_dpm_w1.txt","w")
 
 file_best.write("Best DPM for the associated timeout value\n Timeout: "+str(min_pos)+", Energy consumed: " +str(min_value))
 
@@ -61,11 +60,11 @@ y1 = list()
 y2 = list()
 
 n = 0
-with open('Energy_w_dpm/dpm_energy_wl.txt') as temp_f:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
+with open('Energy_w_dpm/dpm_energy_w1.txt') as temp_f:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
     datafile = temp_f.readlines()           #We copy the pair respectively in x and y
     for line in datafile:
         value_list = line.split(",")
-        if ((n%10) == 0):                   #add a value every 10 to reduce overhead in the printed figure
+        if ((n%60) == 0):                   #add a value every 10 to reduce overhead in the printed figure
             x.append(value_list[0])         #save in x value of timeout 
             y1.append(value_list[-1])       #save in y1 the value of the energy consumed with DPM
             y2.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
@@ -81,7 +80,7 @@ plt.title('Power consumption associated to timeout value')
 plt.xlabel('timeout')
 plt.ylabel('Energy consumed')
 
-plt.savefig('printed_graphs/dpm_wl.png')
+plt.savefig('printed_graphs/dpm_w1.png')
 
 plt.clf() #clear the plt to print next figure
 
@@ -90,6 +89,6 @@ plt.title('Energy saved')
 plt.xlabel('timeout')
 plt.ylabel('energy saved')
 
-plt.savefig('printed_graphs/saved_energy_wl.png')
+plt.savefig('printed_graphs/saved_energy_w1.png')
 
 #plt.show()
