@@ -1,2 +1,2 @@
 Best DPM for the associated timeout value
- Timeout: 0, Energy consumed: 0.40080438
+ Timeout: 9, Energy consumed: 0.48130428

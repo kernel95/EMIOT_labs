@@ -66,7 +66,7 @@ with open('Energy_w_dpm/dpm_energy_w1.txt') as temp_f:   #for each line in the f
         value_list = line.split(",")
         if ((n%60) == 0):                   #add a value every 10 to reduce overhead in the printed figure
             x.append(value_list[0])         #save in x value of timeout 
-            y1.append(value_list[-1])       #save in y1 the value of the energy consumed with DPM
+            y1.append(value_list[-1][:-8])       #save in y1 the value of the energy consumed with DPM
             y2.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
         n = n+1
 
@@ -77,8 +77,8 @@ y2 = np.array(y2)
 
 plt.plot(x, y1)
 plt.title('Power consumption associated to timeout value')
-plt.xlabel('timeout')
-plt.ylabel('Energy consumed')
+plt.xlabel('timeout (ms)')
+plt.ylabel('Energy consumed (J)')
 
 plt.savefig('printed_graphs/dpm_w1.png')
 
@@ -86,8 +86,8 @@ plt.clf() #clear the plt to print next figure
 
 plt.plot(x, y2)
 plt.title('Energy saved')
-plt.xlabel('timeout')
-plt.ylabel('energy saved')
+plt.xlabel('timeout (ms)')
+plt.ylabel('energy saved (%)')
 
 plt.savefig('printed_graphs/saved_energy_w1.png')
 
