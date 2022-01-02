@@ -12,11 +12,13 @@ file = open("simulator_results/results_sleep_w2.txt","w+")
 savings = list() #list that contains value of energy consumed with different timeout values
 percentage_saved = list() #list of values of percentage of energy saved
 
-for i in range (50000):
-    if(i%5 == 0):
-        stream = os.popen('./dpm_simulator -t ' + str(i+Tbe) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
+for i in range (120000):
+    if(i%50 == 0):
+        #stream = os.popen('./dpm_simulator -t ' + str(i+Tbe) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
+        stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
         output = stream.read() #output of the command saved in this variable
-        file.write("simulator with timeout t=%d \r\n\n" % (i+Tbe))
+        #file.write("simulator with timeout t=%d \r\n\n" % (i+Tbe))
+        file.write("simulator with timeout t=%d \r\n\n" % i)
         file.write(output)
         file.write("\n\n")
 
@@ -39,7 +41,8 @@ with open('simulator_results/results_sleep_w2.txt') as temp_f:
                 Energy_wo_dpm = temp_en2[:-1]
 
             value_energy = dpm_energy[:-1]                       #remove the character J
-            file_savings.write(str(i+Tbe) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
+            #file_savings.write(str(i+Tbe) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
+            file_savings.write(str(i*50) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
             file_savings.write("\n")
             savings.append(float(value_energy))                  #Save value of energy consumed for each timeout values in a list
             i += 1
@@ -65,7 +68,7 @@ with open('Energy_w_dpm/dpm_energy_sleep_w2.txt') as temp_f:   #for each line in
     datafile = temp_f.readlines()           #We copy the pair respectively in x and y
     for line in datafile:
         value_list = line.split(",")
-        if ((n%200) == 0):                   #add a value every 10 to reduce overhead in the printed figure
+        if ((n%60) == 0):                   #add a value every 10 to reduce overhead in the printed figure
             x.append(value_list[0])         #save in x value of timeout 
             y1.append(value_list[-1][:-8])       #save in y1 the value of the energy consumed with DPM
             y2.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage

@@ -38,7 +38,7 @@ with open('simulator_results/results_w2.txt') as temp_f:
                 Energy_wo_dpm = temp_en2[:-1]
 
             value_energy = dpm_energy[:-1]                       #remove the character J
-            file_savings.write(str(i) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
+            file_savings.write(str(i*50) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
             file_savings.write("\n")
             savings.append(float(value_energy))                  #Save value of energy consumed for each timeout values in a list
             i += 1
