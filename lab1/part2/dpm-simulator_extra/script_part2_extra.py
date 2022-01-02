@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 #from scipy.interpolate import interp1d
 
+Tbe = 73
+
 fig = plt.gcf() #variable created to manage size and characteristics of figures
 fig.set_size_inches(18, 18, forward=True) #25 e 35 prima
 
@@ -28,6 +30,7 @@ file_savings = open("Energy_w_dpm/dpm_energy_extra_wl.txt","w+")
 with open('simulator_results/results_extra_wl.txt') as temp_f:
     datafile = temp_f.readlines()
     i = 0
+    j = 0
     for line in datafile:                                        #for each line in the file
         if "Energy w DPM" in line:                               #that contains this string
             value_list = line.split()                            #split by space
@@ -68,7 +71,7 @@ with open('Energy_w_dpm/dpm_energy_extra_wl.txt') as temp_f:   #for each line in
         value_list = line.split(",")
         if ((n%10) == 0):                   #add a value every 10 to reduce overhead in the printed figure
             x.append(value_list[0])         #save in x value of timeout 
-            y1.append(value_list[-1])       #save in y1 the value of the energy consumed with DPM
+            y1.append(value_list[-1][:-8])       #save in y1 the value of the energy consumed with DPM
             y2.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
         n = n+1
 

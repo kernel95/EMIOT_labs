@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 #from scipy.interpolate import interp1d
 
 fig = plt.gcf() #variable created to manage size and characteristics of figures
-fig.set_size_inches(20, 10, forward=True) #25 e 35 prima
+fig.set_size_inches(30, 10, forward=True) #25 e 35 prima
 
 file = open("simulator_results/results_w1.txt","w+")
 savings = list() #list that contains value of energy consumed with different timeout values
@@ -38,7 +38,7 @@ with open('simulator_results/results_w1.txt') as temp_f:
                 Energy_wo_dpm = temp_en2[:-1]
 
             value_energy = dpm_energy[:-1]                       #remove the character J
-            file_savings.write(str(i) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
+            file_savings.write(str(i*50) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
             file_savings.write("\n")
             savings.append(float(value_energy))                  #Save value of energy consumed for each timeout values in a list
             i += 1
