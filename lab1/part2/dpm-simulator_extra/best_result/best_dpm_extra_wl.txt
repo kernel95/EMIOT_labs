@@ -1,0 +1,2 @@
+Best DPM for the associated policy is value
+ Timeout_idle: 0Timeout_sleep: 100, Energy consumed: 11.0346996799
