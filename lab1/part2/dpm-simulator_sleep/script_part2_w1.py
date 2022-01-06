@@ -14,7 +14,7 @@ savings = list() #list that contains value of energy consumed with different tim
 percentage_saved = list() #list of values of percentage of energy saved
 
 for i in range (120000):
-     if (i%50 == 0):
+    if (i%50 == 0):
         stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_1.txt')
         #stream = os.popen('./dpm_simulator -t ' + str(i+Tbe) + ' -psm example/psm.txt -wl workloads/workload_1.txt')
         output = stream.read() #output of the command saved in this variable
@@ -85,7 +85,7 @@ plt.title('Power consumption associated to timeout value')
 plt.xlabel('timeout (ms)')
 plt.ylabel('Energy consumed (J)')
 
-plt.savefig('printed_graphs/dpm_sleep_w1.png')
+plt.savefig('printed_graphs/dpm_sleep_w1_.png')
 
 plt.clf() #clear the plt to print next figure
 
