@@ -12,7 +12,7 @@ savings = list() #list that contains value of energy consumed with different tim
 percentage_saved = list() #list of values of percentage of energy saved
 
 for i in range (120000):
-     if (i%50 == 0):
+    if (i%50 == 0):
         stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_1.txt')
         output = stream.read() #output of the command saved in this variable
         file.write("simulator with timeout t=%d \r\n\n" % i)
