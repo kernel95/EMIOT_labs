@@ -33,9 +33,9 @@ int parse_args(int argc, char *argv[], char *fwl, psm_t *psm, dpm_policy_t
             //     hparams->threshold[1] = atof(argv[++cur]);
             // } else return 0;
 
-            if(argc > cur + 2) {
-                hparams->threshold[0] = atof(argv[++cur]);
-                hparams->threshold[1] = atof(argv[++cur]);
+            if(argc > cur + 1) {
+                hparams->threshold = atof(argv[++cur]);
+                // hparams->threshold[1] = atof(argv[++cur]);
             }
             else return 0;
         }

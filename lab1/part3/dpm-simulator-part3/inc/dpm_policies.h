@@ -46,7 +46,9 @@ typedef struct {
 typedef struct {
     /* Day3: you can add/change stuff here */
     // double alpha[DPM_HIST_WIND_SIZE]; /**< regression model coefficients */
-    double threshold[DPM_N_THRESHOLDS]; /**< thresholds on the predicted time that trigger a state transition */
+    // double threshold[DPM_N_THRESHOLDS]; /**< thresholds on the predicted time that trigger a state transition */
+    double threshold;
+    double history;
 } dpm_history_params;
 
 /**
@@ -81,7 +83,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
  */
 int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
         psm_interval_t idle_period, psm_time_t *history, dpm_policy_t policy,
-        dpm_timeout_params tparams, dpm_history_params hparams, psm_time_t *prev_active_time);
+        dpm_timeout_params tparams, dpm_history_params hparams);
 
 /**
  * @brief Initialize the history of previous idle times at the beginning of a simulation

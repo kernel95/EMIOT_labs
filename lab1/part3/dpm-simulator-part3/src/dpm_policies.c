@@ -8,7 +8,6 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 	psm_interval_t idle_period;
 	psm_time_t history[DPM_HIST_WIND_SIZE];
 	psm_time_t curr_time = 0;
-    psm_time_t prev_active_time = 0;
 	psm_state_t curr_state = PSM_STATE_ACTIVE;
     psm_state_t prev_state = PSM_STATE_ACTIVE;
     psm_energy_t e_total = 0;
@@ -20,6 +19,8 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 	psm_time_t t_idle_ideal = 0;
     psm_time_t t_state[PSM_N_STATES] = {0};
     int n_tran_total = 0;
+
+    hparams.history = -1;
 
 	fp = fopen(fwl, "r");
 	if(!fp) {
@@ -40,11 +41,11 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 
             // compute previous active time duration
             if(curr_state == PSM_STATE_ACTIVE)
-                prev_active_time++;
+                hparams.history++;
 
             // compute next state
             if(!dpm_decide_state(&curr_state, curr_time, idle_period, history,
-                        sel_policy, tparams, hparams, &prev_active_time)) {
+                        sel_policy, tparams, hparams)) {
                 printf("[error] cannot decide next state!\n");
                 return 0;
             }
@@ -93,7 +94,7 @@ int dpm_simulate(psm_t psm, dpm_policy_t sel_policy, dpm_timeout_params
 
 int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
         psm_interval_t idle_period, psm_time_t *history, dpm_policy_t policy,
-        dpm_timeout_params tparams, dpm_history_params hparams, psm_time_t *prev_active_time)
+        dpm_timeout_params tparams, dpm_history_params hparams)
 {
     switch (policy) {
 
@@ -103,27 +104,22 @@ int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
                 *next_state = PSM_STATE_IDLE;
             } else {
                 *next_state = PSM_STATE_ACTIVE;
-                *prev_active_time = 0;
+                hparams.history = 0;
             }
             break;
 
         case DPM_HISTORY:
             /* Day 3: EDIT */
 
-            if ((curr_time > idle_period.start) && (*prev_active_time < hparams.threshold[0])) {
-                if((curr_time > idle_period.start) && (*prev_active_time < hparams.threshold[1])) {
-                    if(*next_state==PSM_STATE_IDLE) 
-                        *next_state = PSM_STATE_ACTIVE; // ugly but this is because we cannot pass from idle to sleep
-                    else
-                        *next_state = PSM_STATE_SLEEP;
-                } else 
-                    *next_state = PSM_STATE_IDLE;
+            if ((curr_time > idle_period.start) && (hparams.history < hparams.threshold)) {
+                *next_state = PSM_STATE_IDLE;
+            } else if ((curr_time > idle_period.start) && (hparams.history > hparams.threshold)){ 
+                    *next_state = PSM_STATE_SLEEP;
             } else {
                 if(*next_state != PSM_STATE_ACTIVE)
-                    *prev_active_time = 0;
+                    hparams.history = 0;
                 
-                *next_state = PSM_STATE_ACTIVE;
-                
+                *next_state = PSM_STATE_ACTIVE; 
             }
             break;
 
@@ -132,7 +128,7 @@ int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
             return 0;
     }
     if (curr_time < 500) {
-        printf("state : %d, prev active time : %lf, curr time: %lf \n", *next_state, *prev_active_time, curr_time);
+        printf("state : %d, prev active time : %lf, curr time: %lf \n", *next_state, hparams.history, curr_time);
     }
 	return 1;
 }
