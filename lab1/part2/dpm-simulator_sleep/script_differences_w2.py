@@ -9,7 +9,7 @@ fig = plt.gcf() #variable created to manage size and characteristics of figures
 fig.set_size_inches(20, 10, forward=True) #25 e 35 prima
 
 
-Energy_wo_dpm = 15.019
+Energy_wo_dpm = 30.141
 
 x_idle = list()
 y1_idle = list()
@@ -22,26 +22,26 @@ y2_sleep = list()
 
 #reading savings with only sleep transition
 n = 0
-with open('Energy_w_dpm/dpm_energy_sleep_w2_low_sleep.txt') as temp_f:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
+with open('Energy_w_dpm/dpm_energy_sleep_w2.txt') as temp_f:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
     datafile = temp_f.readlines()           #We copy the pair respectively in x and y
     for line in datafile:
         value_list = line.split(",")
-        #if ((n%200) == 0):                   #add a value every 10 to reduce overhead in the printed figure
-        x_sleep.append(value_list[0])         #save in x value of timeout 
-        y1_sleep.append(value_list[-1][:-8])       #save in y1 the value of the energy consumed with DPM
-        y2_sleep.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
+        if ((n%200) == 0):                   #add a value every 10 to reduce overhead in the printed figure
+            x_sleep.append(value_list[0])         #save in x value of timeout 
+            y1_sleep.append(value_list[-1][:-8])       #save in y1 the value of the energy consumed with DPM
+            y2_sleep.append((100 - ((100*(float(value_list[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
         n = n+1
 
 #reading savings with only idle transition
 j = 0
-with open('Energy_w_dpm/dpm_energy_w2_low_idle.txt') as temp_f2:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
+with open('Energy_w_dpm/dpm_energy_idle_w2.txt') as temp_f2:   #for each line in the file that contains pair TIMEOUT, ENERGY W DPM
     datafile2 = temp_f2.readlines()           #We copy the pair respectively in x and y
     for line2 in datafile2:
         value_list2 = line2.split(",")
-        #if ((j%200) == 0):                   #add a value every 10 to reduce overhead in the printed figure
-        x_idle.append(value_list2[0])         #save in x value of timeout 
-        y1_idle.append(value_list2[-1][:-8])       #save in y1 the value of the energy consumed with DPM
-        y2_idle.append((100 - ((100*(float(value_list2[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
+        if ((j%200) == 0):                   #add a value every 10 to reduce overhead in the printed figure
+            x_idle.append(value_list2[0])         #save in x value of timeout 
+            y1_idle.append(value_list2[-1][:-8])       #save in y1 the value of the energy consumed with DPM
+            y2_idle.append((100 - ((100*(float(value_list2[-1]))/float(Energy_wo_dpm))))) #energy saved in percentage
         j = j+1
 
 
@@ -66,4 +66,4 @@ plt.legend()
 
 
 #plt.show()
-plt.savefig('printed_graphs/w2_difference_low.png')
+plt.savefig('printed_graphs/w2_difference.png')

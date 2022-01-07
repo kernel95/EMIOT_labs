@@ -14,8 +14,8 @@ percentage_saved = list() #list of values of percentage of energy saved
 
 for i in range (120000):
     if(i%50 == 0):
-        #stream = os.popen('./dpm_simulator -t ' + str(i+Tbe) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
-        stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
+        stream = os.popen('./dpm_simulator -t ' + str(i+Tbe) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
+        #stream = os.popen('./dpm_simulator -t ' + str(i) + ' -psm example/psm.txt -wl workloads/workload_2.txt')
         output = stream.read() #output of the command saved in this variable
         #file.write("simulator with timeout t=%d \r\n\n" % (i+Tbe))
         file.write("simulator with timeout t=%d \r\n\n" % i)
@@ -41,8 +41,8 @@ with open('simulator_results/results_sleep_w2.txt') as temp_f:
                 Energy_wo_dpm = temp_en2[:-1]
 
             value_energy = dpm_energy[:-1]                       #remove the character J
-            #file_savings.write(str(i+Tbe) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
-            file_savings.write(str(i*50) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
+            file_savings.write(str((i+Tbe)*50) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
+            #file_savings.write(str(i*50) + ',' + str(value_energy)) #save the pair values TIMEOUT and associated ENERGY W DPM
             file_savings.write("\n")
             savings.append(float(value_energy))                  #Save value of energy consumed for each timeout values in a list
             i += 1
@@ -52,7 +52,7 @@ min_pos = savings.index(min(savings))                            #by searching i
 
 print("Best DPM  timeout=%d, Energy w DPM= %f" % (min_pos , min_value))
 
-file_best = open("best_result/best_dpm_sleep_w2.txt","w")
+file_best = open("best_result/best_dpm_sleep_w2_tbe.txt","w")
 
 file_best.write("Best DPM for the associated timeout value\n Timeout: "+str(min_pos)+", Energy consumed: " +str(min_value))
 
@@ -84,7 +84,7 @@ plt.title('Power consumption associated to timeout value')
 plt.xlabel('timeout (ms)')
 plt.ylabel('Energy consumed (J)')
 
-plt.savefig('printed_graphs/dpm_sleep_w2.png')
+#plt.savefig('printed_graphs/dpm_sleep_w2.png')
 
 plt.clf() #clear the plt to print next figure
 
@@ -93,6 +93,6 @@ plt.title('Energy saved')
 plt.xlabel('timeout(ms)')
 plt.ylabel('energy saved (%)')
 
-plt.savefig('printed_graphs/saved_energy_sleep_w2.png')
+#plt.savefig('printed_graphs/saved_energy_sleep_w2.png')
 
 #plt.show()
