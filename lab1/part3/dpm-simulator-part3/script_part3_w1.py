@@ -92,7 +92,6 @@ plt.savefig('printed_graphs/dpm_w1.png')
 plt.clf() #clear the plt to print next figure
 
 plt.axvline(x_point, 0, 100, color='red', label='Tbe', linestyle="--")
-
 plt.plot(x, y2)
 plt.title('Energy saved')
 plt.xlabel('Threshold (ms)')
