@@ -13,8 +13,8 @@ file = open("simulator_results/results_extra_wl.txt","w+")
 savings = list() #list that contains value of energy consumed with different timeout values
 percentage_saved = list() #list of values of percentage of energy saved
 
-for i in range (50):
-    for j in range (100):
+for i in range (20):
+    for j in range (50):
         #stream = os.popen('./dpm_simulator -t ' + str(i) + str(j+Tbe) + ' -psm example/psm.txt -wl example/wl.txt')
         stream = os.popen('./dpm_simulator -t ' + str(i) + str(j) + ' -psm example/psm.txt -wl example/wl.txt')
         output = stream.read() #output of the command saved in this variable
@@ -96,16 +96,17 @@ x = np.array(x1)     #transform them from list to array (maybe useless) #timeout
 y = np.array(x2)     #timeout_sleep
 z = np.array(y2)     #energy_saved values
 
-# fig = plt.figure(figsize=(50,50))
+
+fig = plt.figure(figsize=(50,50))
 
 # #fig = plt.figure()
 
-# ax = fig.add_subplot(111, projection='3d')
+ax = fig.add_subplot(111, projection='3d')
 
-# ax.scatter(x,y,z)
-# plt.savefig('printed_graphs/saved_energy_extra_wl.png')
+ax.scatter(x,y,z)
+plt.savefig('printed_graphs/saved_energy_extra_wl.png')
 
-# plt.show()
+plt.show()
 
 # plt.plot(x1, y1)
 # plt.title('Power consumption associated to timeout value')
