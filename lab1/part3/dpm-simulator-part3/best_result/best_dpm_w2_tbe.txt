@@ -1,0 +1,2 @@
+Best DPM for the associated threshold value: 
+73, Energy consumed: 0.19931982

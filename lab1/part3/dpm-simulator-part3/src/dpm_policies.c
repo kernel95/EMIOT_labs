@@ -127,9 +127,9 @@ int dpm_decide_state(psm_state_t *next_state, psm_time_t curr_time,
             printf("[error] unsupported policy\n");
             return 0;
     }
-    if (curr_time < 500) {
-        printf("state : %d, prev active time : %lf, curr time: %lf \n", *next_state, *prev_active_time, curr_time);
-    }
+    // if (curr_time < 500) {
+    //     printf("state : %d, prev active time : %lf, curr time: %lf \n", *next_state, *prev_active_time, curr_time);
+    // }
 	return 1;
 }
 

@@ -1,0 +1,2 @@
+Best DPM for the associated threshold value
+ : 650, Energy consumed: 8.4791116201
