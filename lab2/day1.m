@@ -9,9 +9,9 @@ close all
 image = imread('misc\4.1.01.tiff');
 
 power_original = power_consumption(image);
-rgb_histogram(image);
+RGB_distribution(image);
 
-image_hungry_blue = hungry_blue(image,20);
+image_hungry_blue = hungry_blue(image,100);
 image_histo_eq = histogram_eq(image);
 
 power_hungry_blue = power_consumption(image_hungry_blue);
