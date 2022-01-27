@@ -4,10 +4,6 @@ function new_img = custom(img, reduction_percentage)
     if reduction_percentage < 0 || reduction_percentage > 100
         error("ERROR: the percentage should be between 0 and 100!!! \n"); 
     end
-    
-    figure;
-    imhist(img);
-    imshow(img);
 
      % picture dimension
     height = length(img(:, 1, 1));
@@ -22,10 +18,6 @@ function new_img = custom(img, reduction_percentage)
         end
     end
 
-    figure;
-    imhist(new_blue);
-    imshow(new_blue);
-
     new_green = new_blue;
     
     % new_green = oldvalue - oldvalue*percentage/100;
@@ -34,10 +26,6 @@ function new_img = custom(img, reduction_percentage)
             new_green(i,j,2) = (double(new_green(i,j,2)) - ((double(new_green(i,j,2)) * reduction_percentage)/100));
         end
     end
-
-    figure;
-    imhist(new_green);
-    imshow(new_green);
 
     new_red = new_green;
     
@@ -48,10 +36,5 @@ function new_img = custom(img, reduction_percentage)
         end
     end
 
-    figure;
-    imhist(new_red);
-    imshow(new_red);
-
-    
     new_img = new_red;
 end
