@@ -5,20 +5,20 @@ function new_img = custom(img, reduction_percentage)
         error("ERROR: the percentage should be between 0 and 100!!! \n"); 
     end
     
-    figure;
-    imhist(img);
-    imshow(img);
+    %figure;
+    %imhist(img);
+    %imshow(img);
 
      % picture dimension
     height = length(img(:, 1, 1));
     width  = length(img(1, :, 1));
 
     new_blue = img;
-    new_img = histeq(new_blue);
+    new_img = histeq(new_blue); %modifica necessaria
 
-    figure;
-    imhist(new_img);
-    imshow(new_img);
+    %figure;
+    %imhist(new_img);
+    %imshow(new_img);
     
     % newblue = oldvalue - oldvalue*percentage/100;
     for i = 1 : height
@@ -27,9 +27,9 @@ function new_img = custom(img, reduction_percentage)
         end
     end
 
-    figure;
-    imhist(new_img);
-    imshow(new_img);
+    %figure;
+    %imhist(new_img);
+    %imshow(new_img);
 
 
 end
