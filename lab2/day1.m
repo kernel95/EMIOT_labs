@@ -1,5 +1,7 @@
 close all
 
+Distortion_constraint = 3;
+
 images_list1 = struct;
 images_list2 = struct;
 images_list3 = struct;
@@ -16,7 +18,7 @@ images_list2 = auto_image_list2(images_list2);
 %screenshots
 images_list3 = auto_image_list3(images_list3);
 
-%produce figures for misc
+produce figures for misc
 bar_hungry_blue(images_list1);
 bar_histo_eq(images_list1);
 bar_custom_transformation(images_list1);
@@ -32,4 +34,5 @@ bar_histo_eq(images_list3);
 bar_custom_transformation(images_list3);
 
 
-
+%%
+best_manipulation_under_constraint(Distortion_constraint, images_list1);
