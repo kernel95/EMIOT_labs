@@ -57,6 +57,18 @@ images_list3.average_power_custom10 = 0;
 images_list3.average_distortion_hungry_blue10 = 0;
 images_list3.average_distortion_custom10 = 0;
 
+%savings
+images_list3.savings_hungry_blue1 = zeros(1, length(images_list3.dir));
+images_list3.savings_hungry_blue5 = zeros(1, length(images_list3.dir));
+images_list3.savings_hungry_blue10 = zeros(1, length(images_list3.dir));
+
+images_list3.savings_histo_eq = zeros(1, length(images_list3.dir));
+
+images_list3.savings_custom1 = zeros(1, length(images_list3.dir));
+images_list3.savings_custom5 = zeros(1, length(images_list3.dir));
+images_list3.savings_custom10 = zeros(1, length(images_list3.dir));
+
+
 %loop for each image in the folder
 for k = 1 : length(images_list3.dir)
 
@@ -129,12 +141,24 @@ for k = 1 : length(images_list3.dir)
     images_list3.average_power_hungry_blue1 = images_list3.average_power_hungry_blue1 + (images_list3.original_power(k) - images_list3.power_hungry_blue1(k));
     images_list3.average_power_histo_eq =  images_list3.average_power_histo_eq + (images_list3.original_power(k) - images_list3.power_histo_eq(k));
     images_list3.average_power_custom1 = images_list3.average_power_custom1 + (images_list3.original_power(k) - images_list3.power_custom1(k));
+    %save savings
+    images_list3.savings_hungry_blue1(k) = images_list3.original_power(k) - images_list3.power_hungry_blue1(k);
+    images_list3.savings_histo_eq(k) = images_list3.original_power(k) - images_list3.power_histo_eq(k);
+    images_list3.savings_custom1(k) = images_list3.original_power(k) - images_list3.power_custom1(k);
+    
     %5
     images_list3.average_power_hungry_blue5 = images_list3.average_power_hungry_blue5 + (images_list3.original_power(k) - images_list3.power_hungry_blue5(k));
     images_list3.average_power_custom5 = images_list3.average_power_custom5 + (images_list3.original_power(k) - images_list3.power_custom5(k));
+    %save savings
+    images_list3.savings_hungry_blue5(k) = images_list3.original_power(k) - images_list3.power_hungry_blue5(k);
+    images_list3.savings_custom5(k) = images_list3.original_power(k) - images_list3.power_custom5(k);
+
     %10
     images_list3.average_power_hungry_blue10 = images_list3.average_power_hungry_blue10 + (images_list3.original_power(k) - images_list3.power_hungry_blue10(k));
     images_list3.average_power_custom10 = images_list3.average_power_custom10 + (images_list3.original_power(k) - images_list3.power_custom10(k));
+    %save savings
+    images_list3.savings_hungry_blue10(k) = images_list3.original_power(k) - images_list3.power_hungry_blue10(k);
+    images_list3.savings_custom10(k) = images_list3.original_power(k) - images_list3.power_custom10(k);
 
     %avg distortion
     %1
@@ -192,8 +216,9 @@ plot(y_distortion_custom, x_savings_custom, '-o');
 xlabel('AVG DISTORTION [%]');
 ylabel('AVG POWER CONSUMPTION');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
+title('power vs. distortion screenshots');
+saveas(figure3, 'figures/power_vs_distortion3.jpg');
 
-saveas(figure3, 'power_vs_distortion3.jpg');
 structure3 = images_list3;
 
 end

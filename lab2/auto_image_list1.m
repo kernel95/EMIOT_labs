@@ -58,9 +58,15 @@ images_list1.average_distortion_hungry_blue10 = 0;
 images_list1.average_distortion_custom10 = 0;
 
 %savings
-images_list1.savings_hungry_blue1 = zeros(1, length(images_list1.power_hungry_blue1));
-images_list1.savings_hungry_blue5 = zeros(1, length(images_list1.power_hungry_blue1));
-images_list1.savings_hungry_blue10 = zeros(1, length(images_list1.power_hungry_blue1));
+images_list1.savings_hungry_blue1 = zeros(1, length(images_list1.dir));
+images_list1.savings_hungry_blue5 = zeros(1, length(images_list1.dir));
+images_list1.savings_hungry_blue10 = zeros(1, length(images_list1.dir));
+
+images_list1.savings_histo_eq = zeros(1, length(images_list1.dir));
+
+images_list1.savings_custom1 = zeros(1, length(images_list1.dir));
+images_list1.savings_custom5 = zeros(1, length(images_list1.dir));
+images_list1.savings_custom10 = zeros(1, length(images_list1.dir));
 
 %loop for each image in the folder
 for k = 1 : length(images_list1.dir)
@@ -136,16 +142,20 @@ for k = 1 : length(images_list1.dir)
     images_list1.average_power_custom1 = images_list1.average_power_custom1 + (images_list1.original_power(k) - images_list1.power_custom1(k));
     %save savings
     images_list1.savings_hungry_blue1(k) = images_list1.original_power(k) - images_list1.power_hungry_blue1(k);
+    images_list1.savings_histo_eq(k) = images_list1.original_power(k) - images_list1.power_histo_eq(k);
+    images_list1.savings_custom1(k) = images_list1.original_power(k) - images_list1.power_custom1(k);
     %5
     images_list1.average_power_hungry_blue5 = images_list1.average_power_hungry_blue5 + (images_list1.original_power(k) - images_list1.power_hungry_blue5(k));
     images_list1.average_power_custom5 = images_list1.average_power_custom5 + (images_list1.original_power(k) - images_list1.power_custom5(k));
     %save savings
     images_list1.savings_hungry_blue5(k) = images_list1.original_power(k) - images_list1.power_hungry_blue5(k);
+    images_list1.savings_custom5(k) = images_list1.original_power(k) - images_list1.power_custom5(k);
     %10
     images_list1.average_power_hungry_blue10 = images_list1.average_power_hungry_blue10 + (images_list1.original_power(k) - images_list1.power_hungry_blue10(k));
     images_list1.average_power_custom10 = images_list1.average_power_custom10 + (images_list1.original_power(k) - images_list1.power_custom10(k));
     %save savings
     images_list1.savings_hungry_blue10(k) = images_list1.original_power(k) - images_list1.power_hungry_blue10(k);
+    images_list1.savings_custom10(k) = images_list1.original_power(k) - images_list1.power_custom10(k);
 
     %avg distortion
     %1
@@ -193,6 +203,7 @@ y_distortion_histo_eq = images_list1.average_distortion_histo_eq;
 x_savings_custom = [images_list1.average_power_custom1,images_list1.average_power_custom5,images_list1.average_power_custom10];
 y_distortion_custom = [images_list1.average_distortion_custom1 ,images_list1.average_distortion_custom5,images_list1.average_distortion_custom10];
 
+%plot of how the consumption evolves with transformations
 figure1 = figure;
 plot(y_distortion_hungry_blue,x_savings_hungry_blue, '-o');
 hold on;
@@ -202,33 +213,67 @@ plot(y_distortion_custom, x_savings_custom, '-o');
 xlabel('AVG DISTORTION [%]');
 ylabel('AVG POWER SAVINGS');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
-saveas(figure1, 'power_vs_distortion1.jpg');
+title('power vs. distortion misc images');
+saveas(figure1, 'figures/power_vs_distortion1.jpg');
 
-%%
-x_name = strings(1, length(images_list1));
-y_power_cons_blue1 = zeros(1, length(images_list1.power_hungry_blue1));
-y_power_cons_blue5 = zeros(1, length(images_list1.power_hungry_blue5));
-y_power_cons_blue10 = zeros(1, length(images_list1.power_hungry_blue10));
-y_hungry_blue_total = zeros(1, length(images_list1.power_hungry_blue10)*3);
+%plot of power differences for hungry blue for every image
+%x_name = strings(1, length(images_list1));
+%y_power_cons_blue1 = zeros(1, length(images_list1.power_hungry_blue1));
+%y_power_cons_blue5 = zeros(1, length(images_list1.power_hungry_blue5));
+%y_power_cons_blue10 = zeros(1, length(images_list1.power_hungry_blue10));
+%y_hungry_blue_total = zeros(1, length(images_list1.power_hungry_blue10)*3);
 
-x_name = categorical(images_list1.name);
-x_name = reordercats(x_name);
-y_power_cons_blue1 = images_list1.savings_hungry_blue1;
-y_power_cons_blue5 = images_list1.savings_hungry_blue5;
-y_power_cons_blue10 = images_list1.savings_hungry_blue10;
+%x_name = categorical(images_list1.name);
+%x_name = reordercats(x_name);
+%y_power_cons_blue1 = images_list1.savings_hungry_blue1;
+%y_power_cons_blue5 = images_list1.savings_hungry_blue5;
+%y_power_cons_blue10 = images_list1.savings_hungry_blue10;
 
-
-y_hungry_blue_total = [y_power_cons_blue1 ; y_power_cons_blue5 ; y_power_cons_blue10];
-ylabel('POWER SAVINGS');
-fig_bar = bar(x_name, y_hungry_blue_total);
-l = cell(1,3);
-l{1}='1%'; l{2}='5%'; l{3}='10%';
-legend(fig_bar,l);
-ylabel('SAVINGS HUNGRY BLUE');
+%fig_bar1 = figure;
+%y_hungry_blue_total = [y_power_cons_blue1 ; y_power_cons_blue5 ; y_power_cons_blue10];
+%ylabel('POWER SAVINGS');
+%fig_bar1 = bar(x_name, y_hungry_blue_total);
+%l = cell(1,3);
+%l{1}='1%'; l{2}='5%'; l{3}='10%';
+%legend(fig_bar1,l);
+%ylabel('SAVINGS HUNGRY BLUE');
 %ax = gca;
-%exportgraphics(ax, 'power_savings_hungry_blue.jpg', 'resolution',600);
+%exportgraphics(ax, 'figures/power_savings_hungry_blue_misc.jpg', 'resolution',600);
 
+%plot of power differences for histogram equalization for every image
+%y_power_histo_eq = zeros(1, length(images_list1.power_histo_eq));
 
+%y_power_histo_eq = images_list1.savings_histo_eq;
+
+%fig_bar4 = figure;
+%ylabel('POWER SAVINGS');
+%fig_bar4 = bar(x_name, y_power_histo_eq);
+%ylabel('SAVINGS HISTOGRAM EQUALIZATION');
+%ax = gca;
+%exportgraphics(ax, 'figures/power_savings_histo_eq_misc.jpg', 'resolution',600);
+
+%plot of power differences for custom transformation for every image
+%y_power_cons_custom1 = zeros(1, length(images_list1.power_custom1));
+%y_power_cons_custom5 = zeros(1, length(images_list1.power_custom5));
+%y_power_cons_custom10 = zeros(1, length(images_list1.power_custom10));
+%y_hungry_custom_total = zeros(1, length(images_list1.power_custom10)*3);
+
+%y_power_cons_custom1 = images_list1.savings_custom1;
+%y_power_cons_custom5 = images_list1.savings_custom5;
+%y_power_cons_custom10 = images_list1.savings_custom10;
+
+%fig_bar5 = figure;
+%y_custom_total = [y_power_cons_custom1 ; y_power_cons_custom5 ; y_power_cons_custom10];
+%ylabel('POWER SAVINGS');
+%fig_bar5 = bar(x_name, y_custom_total);
+%l = cell(1,3);
+%l{1}='1%'; l{2}='5%'; l{3}='10%';
+%legend(fig_bar5,l);
+%ylabel('SAVINGS CUSTOM TRANSFORMATION');
+%ax = gca;
+%exportgraphics(ax, 'figures/power_savings_custom_misc.jpg', 'resolution',600);
+
+%return the structure 
 structure1 = images_list1;
 end
 

@@ -1,5 +1,3 @@
-clear
-clc
 close all
 
 images_list1 = struct;
@@ -11,8 +9,27 @@ images_list2.dir = dir(fullfile("BSR_bsds500/BSR/BSDS500/data/images/train/*.jpg
 images_list3.dir = dir(fullfile("screenshots/*.png")); % 5 images 
 
 %launch scripts that will fill data structure
+%images in misc folder
 images_list1 = auto_image_list1(images_list1);
+%images in train folder of BSR dataset
+images_list2 = auto_image_list2(images_list2);
+%screenshots
+images_list3 = auto_image_list3(images_list3);
 
-%images_list2 = auto_image_list2(images_list2);
+%produce figures for misc
+bar_hungry_blue(images_list1);
+bar_histo_eq(images_list1);
+bar_custom_transformation(images_list1);
 
-%images_list3 = auto_image_list3(images_list3);
+%produce figures for BSD dataset
+bar_hungry_blue(images_list2);
+bar_histo_eq(images_list2);
+bar_custom_transformation(images_list2);
+
+%produce figures for screenshots
+bar_hungry_blue(images_list3);
+bar_histo_eq(images_list3);
+bar_custom_transformation(images_list3);
+
+
+
