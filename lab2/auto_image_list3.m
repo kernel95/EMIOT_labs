@@ -183,7 +183,7 @@ y_distortion_histo_eq = images_list3.average_distortion_histo_eq;
 x_savings_custom = [images_list3.average_power_custom1,images_list3.average_power_custom5,images_list3.average_power_custom10];
 y_distortion_custom = [images_list3.average_distortion_custom1 ,images_list3.average_distortion_custom5,images_list3.average_distortion_custom10];
 
-figure;
+figure3 = figure;
 plot(y_distortion_hungry_blue,x_savings_hungry_blue, '-o');
 hold on;
 plot(y_distortion_histo_eq, x_savings_histo_eq, '-o');
@@ -193,7 +193,7 @@ xlabel('AVG DISTORTION [%]');
 ylabel('AVG POWER CONSUMPTION');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
 
-
+saveas(figure3, 'power_vs_distortion3.jpg');
 structure3 = images_list3;
 
 end

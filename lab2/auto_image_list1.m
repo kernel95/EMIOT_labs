@@ -57,6 +57,11 @@ images_list1.average_power_custom10 = 0;
 images_list1.average_distortion_hungry_blue10 = 0;
 images_list1.average_distortion_custom10 = 0;
 
+%savings
+images_list1.savings_hungry_blue1 = zeros(1, length(images_list1.power_hungry_blue1));
+images_list1.savings_hungry_blue5 = zeros(1, length(images_list1.power_hungry_blue1));
+images_list1.savings_hungry_blue10 = zeros(1, length(images_list1.power_hungry_blue1));
+
 %loop for each image in the folder
 for k = 1 : length(images_list1.dir)
 
@@ -129,12 +134,18 @@ for k = 1 : length(images_list1.dir)
     images_list1.average_power_hungry_blue1 = images_list1.average_power_hungry_blue1 + (images_list1.original_power(k) - images_list1.power_hungry_blue1(k));
     images_list1.average_power_histo_eq =  images_list1.average_power_histo_eq + (images_list1.original_power(k) - images_list1.power_histo_eq(k));
     images_list1.average_power_custom1 = images_list1.average_power_custom1 + (images_list1.original_power(k) - images_list1.power_custom1(k));
+    %save savings
+    images_list1.savings_hungry_blue1(k) = images_list1.original_power(k) - images_list1.power_hungry_blue1(k);
     %5
     images_list1.average_power_hungry_blue5 = images_list1.average_power_hungry_blue5 + (images_list1.original_power(k) - images_list1.power_hungry_blue5(k));
     images_list1.average_power_custom5 = images_list1.average_power_custom5 + (images_list1.original_power(k) - images_list1.power_custom5(k));
+    %save savings
+    images_list1.savings_hungry_blue5(k) = images_list1.original_power(k) - images_list1.power_hungry_blue5(k);
     %10
     images_list1.average_power_hungry_blue10 = images_list1.average_power_hungry_blue10 + (images_list1.original_power(k) - images_list1.power_hungry_blue10(k));
     images_list1.average_power_custom10 = images_list1.average_power_custom10 + (images_list1.original_power(k) - images_list1.power_custom10(k));
+    %save savings
+    images_list1.savings_hungry_blue10(k) = images_list1.original_power(k) - images_list1.power_hungry_blue10(k);
 
     %avg distortion
     %1
@@ -147,7 +158,6 @@ for k = 1 : length(images_list1.dir)
     %10
     images_list1.average_distortion_hungry_blue10 = images_list1.average_distortion_hungry_blue10 + images_list1.distortion_hungry_blue10(k);
     images_list1.average_distortion_custom10 = images_list1.average_distortion_custom5 + images_list1.distortion_custom10(k);
-
 
 end 
 
@@ -173,7 +183,7 @@ images_list1.average_distortion_custom5 = images_list1.average_distortion_custom
 images_list1.average_distortion_hungry_blue10 = images_list1.average_distortion_hungry_blue10/k;
 images_list1.average_distortion_custom10 = images_list1.average_distortion_custom10/k;
 
-
+%plots
 x_savings_hungry_blue = [images_list1.average_power_hungry_blue1, images_list1.average_power_hungry_blue5, images_list1.average_power_hungry_blue10];
 y_distortion_hungry_blue = [images_list1.average_distortion_hungry_blue1, images_list1.average_distortion_hungry_blue5, images_list1.average_distortion_hungry_blue10];
 
@@ -183,20 +193,46 @@ y_distortion_histo_eq = images_list1.average_distortion_histo_eq;
 x_savings_custom = [images_list1.average_power_custom1,images_list1.average_power_custom5,images_list1.average_power_custom10];
 y_distortion_custom = [images_list1.average_distortion_custom1 ,images_list1.average_distortion_custom5,images_list1.average_distortion_custom10];
 
-figure;
+figure1 = figure;
 plot(y_distortion_hungry_blue,x_savings_hungry_blue, '-o');
 hold on;
 plot(y_distortion_histo_eq, x_savings_histo_eq, '-o');
 hold on;
 plot(y_distortion_custom, x_savings_custom, '-o');
 xlabel('AVG DISTORTION [%]');
-ylabel('AVG POWER CONSUMPTION');
+ylabel('AVG POWER SAVINGS');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
+saveas(figure1, 'power_vs_distortion1.jpg');
+
+%%
+x_name = strings(1, length(images_list1));
+y_power_cons_blue1 = zeros(1, length(images_list1.power_hungry_blue1));
+y_power_cons_blue5 = zeros(1, length(images_list1.power_hungry_blue5));
+y_power_cons_blue10 = zeros(1, length(images_list1.power_hungry_blue10));
+y_hungry_blue_total = zeros(1, length(images_list1.power_hungry_blue10)*3);
+
+x_name = categorical(images_list1.name);
+x_name = reordercats(x_name);
+y_power_cons_blue1 = images_list1.savings_hungry_blue1;
+y_power_cons_blue5 = images_list1.savings_hungry_blue5;
+y_power_cons_blue10 = images_list1.savings_hungry_blue10;
+
+
+y_hungry_blue_total = [y_power_cons_blue1 ; y_power_cons_blue5 ; y_power_cons_blue10];
+ylabel('POWER SAVINGS');
+fig_bar = bar(x_name, y_hungry_blue_total);
+l = cell(1,3);
+l{1}='1%'; l{2}='5%'; l{3}='10%';
+legend(fig_bar,l);
+ylabel('SAVINGS HUNGRY BLUE');
+%ax = gca;
+%exportgraphics(ax, 'power_savings_hungry_blue.jpg', 'resolution',600);
 
 
 structure1 = images_list1;
-
 end
+
+
 
 
 

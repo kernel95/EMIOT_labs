@@ -76,6 +76,7 @@ for k = 1 : length(images_list2.dir)
     image_hungry_blue = hungry_blue(image,1);
     image_histo_eq = histogram_eq(image);
     image_custom = custom(image, 1);
+    
 
     %evaluate power after transformations
     images_list2.power_hungry_blue1(k) = power_consumption(image_hungry_blue);
@@ -120,6 +121,7 @@ for k = 1 : length(images_list2.dir)
     images_list2.differnce_hungry_blue10(k) = image_difference(image, image_hungry_blue);
     images_list2.differnce_custom10(k) = image_difference(image, image_custom);
 
+    k
     %compute distortion
     images_list2.distortion_hungry_blue10(k) = distortion(images_list2.differnce_hungry_blue10(k), image);
     images_list2.distortion_custom10(k) = distortion(images_list2.differnce_custom10(k), image);
@@ -183,7 +185,7 @@ y_distortion_histo_eq = images_list2.average_distortion_histo_eq;
 x_savings_custom = [images_list2.average_power_custom1,images_list2.average_power_custom5,images_list2.average_power_custom10];
 y_distortion_custom = [images_list2.average_distortion_custom1 ,images_list2.average_distortion_custom5,images_list2.average_distortion_custom10];
 
-figure;
+figure2 = figure;
 plot(y_distortion_hungry_blue,x_savings_hungry_blue, '-o');
 hold on;
 plot(y_distortion_histo_eq, x_savings_histo_eq, '-o');
@@ -192,7 +194,7 @@ plot(y_distortion_custom, x_savings_custom, '-o');
 xlabel('AVG DISTORTION [%]');
 ylabel('AVG POWER CONSUMPTION');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
-
+saveas(figure2, 'power_vs_distortion2.jpg');
 
 structure2 = images_list2;
 
