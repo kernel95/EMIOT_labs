@@ -3,7 +3,7 @@ Distortion_constraint = 3;
 
 name1 = "misc";
 name2 = "BSR";
-namm3 = "screenshots";
+name3 = "screenshots";
 
 images_list1 = struct;
 images_list2 = struct;
@@ -24,8 +24,6 @@ images_list3 = auto_image_list3(images_list3);
 
 %produce figures for misc
 bar_hungry_blue(images_list1, name1);
-
-
 bar_histo_eq(images_list1, name1);
 bar_custom_transformation(images_list1, name1);
 
@@ -40,8 +38,8 @@ bar_hungry_blue(images_list3, name3);
 bar_histo_eq(images_list3, name3);
 bar_custom_transformation(images_list3, name3);
 
-
-%best manipulations for images_list
+%%
+best manipulations for images_list
 best_manipulation_under_constraint(Distortion_constraint, images_list1, name1);
 best_manipulation_under_constraint(Distortion_constraint, images_list2, name2);
 best_manipulation_under_constraint(Distortion_constraint, images_list3, name3);

@@ -85,11 +85,10 @@ function best_manipulation_under_constraint(distortion_constraint, images_list, 
     l{1}='blue 1%'; l{2}='blue 5%'; l{3}='blue 10%' ; l{4}='histo eq' ; l{5}='custom 1%' ; l{6}='custom 5%' ; l{7}='custom 10%';
     legend(fig_bar1,l);
     ylabel('Energy savings within 3% distortion');
-    %xlabel({'4.2.05.tiff' , '4.2.05.tiff' , '4.2.05.tiff' , '4.1.06.tiff' , '4.2.05.tiff', '4.2.05.tiff' , '4.2.05.tiff'});
     ax = gca;
     set(ax,'xticklabel',[])
-    %saving_path = strcat(folder, '/best_manipulations_', name_list, '.jpg');
-    %exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
+    saving_path = strcat(folder, '/best_manipulations_', name_list, '.jpg');
+    exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
 
 end
