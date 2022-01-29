@@ -1,4 +1,6 @@
-function bar_hungry_blue(images_list)
+function bar_hungry_blue(images_list, name_list)
+
+    folder = "figures";
 
     x_name = strings(1, length(images_list));
     y_power_cons_blue1 = zeros(1, length(images_list.power_hungry_blue1));
@@ -21,6 +23,7 @@ function bar_hungry_blue(images_list)
     legend(fig_bar1,l);
     ylabel('SAVINGS HUNGRY BLUE');
     ax = gca;
-    exportgraphics(ax, 'figures/power_savings_hungry_blue_list.jpg', 'resolution',600); %remember to change name to specify the list
+    saving_path = strcat(folder, '/power_savings_hungry_blue_', name_list, '.jpg');
+    exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
 end

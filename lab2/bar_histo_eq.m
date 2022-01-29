@@ -1,4 +1,6 @@
-function bar_histo_eq(images_list)
+function bar_histo_eq(images_list, name_list)
+
+    folder = "figures";
 
     x_name = strings(1, length(images_list));
 
@@ -14,6 +16,7 @@ function bar_histo_eq(images_list)
     fig_bar4 = bar(x_name, y_power_histo_eq);
     ylabel('SAVINGS HISTOGRAM EQUALIZATION');
     ax = gca;
-    exportgraphics(ax, 'figures/power_savings_histo_eq_list.jpg', 'resolution',600); %remember to change name to specify the list
+    saving_path = strcat(folder, '/power_savings_histo_eq_', name_list, '.jpg');
+    exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
 end

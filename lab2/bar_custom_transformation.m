@@ -1,4 +1,6 @@
-function bar_custom_transformation(images_list)
+function bar_custom_transformation(images_list, name_list)
+
+    folder = "figures";
 
     x_name = strings(1, length(images_list));
 
@@ -23,6 +25,7 @@ function bar_custom_transformation(images_list)
     legend(fig_bar5,l);
     ylabel('SAVINGS CUSTOM TRANSFORMATION');
     ax = gca;
-    exportgraphics(ax, 'figures/power_savings_custom_list.jpg', 'resolution',600); %remember to change name to specify the list
+    saving_path = strcat(folder, '/power_savings_custom_', name_list, '.jpg');
+    exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
 end
