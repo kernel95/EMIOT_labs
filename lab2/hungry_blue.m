@@ -19,7 +19,7 @@ function new_img = hungry_blue(img, reduction_percentage)
         end
     end
 
-    %figure1 = figure;
-    %imshow(new_img);
-    %saveas(figure1, 'figures/HungryBlue_manipulation_result.jpg');
+    figure1 = figure;
+    imshow(new_img);
+    saveas(figure1, 'figures/HungryBlue_manipulation_result.jpg');
 end

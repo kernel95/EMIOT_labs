@@ -36,8 +36,8 @@ function new_img = custom(img, reduction_percentage)
         end
     end
     
-    %figure3 = figure;
-    %imshow(new_red);
-    %saveas(figure3, 'figures/custom_manipulation_result.jpg');
+    figure3 = figure;
+    imshow(new_red);
+    saveas(figure3, 'figures/custom_manipulation_result.jpg');
     new_img = new_red;
 end
