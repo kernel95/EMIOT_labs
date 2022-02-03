@@ -18,18 +18,18 @@ Vdd = 12;
 
 %image_path = strcat(images_list1.dir(1).folder, '/', images_list1.dir(1).name);
 %images_list1.name(1) = images_list1.dir(1).name;
-image = imread("misc/4.1.02.tiff");
+image2 = imread("misc/4.1.01.tiff");
 %[H, W, channels] = size(image);
 
 
-I = Ipanel(image, Vdd);
-%P = Ppanel(I, Vdd, image);
+I = Ipanel(image2, Vdd);
+P = Ppanel(I, Vdd, image2);
 
 image_RGB_saturated = displayed_image(I, Vdd, SATURATED);
 image_RGB_distorted = displayed_image(I, Vdd, DISTORTED);
 
-diff1 = image_difference(image_RGB_saturated, image);
-diff2 = image_difference(image_RGB_distorted, image);
+diff1 = image_difference(image_RGB_saturated, image2);
+diff2 = image_difference(image_RGB_distorted, image2);
 
 %figure;
 %imshow(image_RGB_distorted/255);
@@ -37,7 +37,9 @@ diff2 = image_difference(image_RGB_distorted, image);
 %imshow(image_RGB_saturated/255);
 
 %figure;
-subplot(2,1,1)
+%subplot(2,1,1)
+figure;
 image(image_RGB_saturated/255);       % display saturated RGB image
-subplot(2,1,2)
-image(image_RGB_distorted/255);       % display distorted RGB imagz
+%subplot(2,1,2)
+figure;
+image(image_RGB_distorted/255);       % display distorted RGB image
