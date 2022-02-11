@@ -1,8 +1,22 @@
-function new_img = brightnessContrast (img)
+function new_img = brightnessContrast (img, b, Vdd, Vdd_mod)
 
     [H, W, channels] = size(img);   % extract size of img
 
-    HSV = rgb2hsv(hungryImg);
+    gl = -((1 - Vdd/Vdd_mod)/2 * (Vdd_mod/Vdd));
+    gu = (b) + gl;
+    
+    if ( gl > 1 ) 
+        gl=1; 
+    elseif(gl < 0) 
+        gl=0; 
+    end
+    if (gu > 1) 
+        gu=1; 
+    elseif(gu < 0) 
+        gu=0; 
+    end
+        
+    HSV = rgb2hsv(img);
 
     c = 1/(gu - gl);
     d = (gl/(gu-gl));
