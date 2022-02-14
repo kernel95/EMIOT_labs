@@ -218,7 +218,7 @@ xlabel('AVG DISTORTION [%]');
 ylabel('AVG POWER CONSUMPTION');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
 title('power vs. distortion BSR database');
-saveas(figure2, 'figures/power_vs_distortion2.jpg');
+saveas(figure2, '../figures/power_vs_distortion2.jpg');
 
 structure2 = images_list2;
 

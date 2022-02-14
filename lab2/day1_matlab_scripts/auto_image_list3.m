@@ -217,7 +217,7 @@ xlabel('AVG DISTORTION [%]');
 ylabel('AVG POWER CONSUMPTION');
 legend('Hungry blue', 'Histogram equalization', 'Custom');
 title('power vs. distortion screenshots');
-saveas(figure3, 'figures/power_vs_distortion3.jpg');
+saveas(figure3, '../figures/power_vs_distortion3.jpg');
 
 structure3 = images_list3;
 

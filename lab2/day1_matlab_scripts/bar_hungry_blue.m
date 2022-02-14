@@ -1,6 +1,6 @@
 function bar_hungry_blue(images_list, name_list)
 
-    folder = "figures";
+    folder = "../figures";
 
     x_name = strings(1, length(images_list));
     y_power_cons_blue1 = zeros(1, length(images_list.power_hungry_blue1));
