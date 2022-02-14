@@ -9,9 +9,9 @@ images_list1 = struct;
 images_list2 = struct;
 images_list3 = struct;
 %create data structure one for each folder
-images_list1.dir= dir(fullfile("misc/*.tiff")); %39 images
-images_list2.dir = dir(fullfile("BSR_bsds500/BSR/BSDS500/data/images/train/*.jpg")); %200 images
-images_list3.dir = dir(fullfile("screenshots/*.png")); % 5 images 
+images_list1.dir= dir(fullfile("../misc/*.tiff")); %39 images
+images_list2.dir = dir(fullfile("../BSR_bsds500/BSR/BSDS500/data/images/train/*.jpg")); %200 images
+images_list3.dir = dir(fullfile("../screenshots/*.png")); % 5 images 
 
 %launch scripts that will fill data structure
 %images in misc folder
