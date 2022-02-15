@@ -1,32 +1,27 @@
-%function bar_brightness_scaling(images_list, name_list)
+function bar_brightness_scaling(images_list,result_struct, name_list)
 
-    %%
-    folder = "../figures";
+    
+    folder = "../figures_day2/";
 
-    x_name = strings(1, length(images_list1.dir));
+    x_name = strings(1, length(images_list.dir));
 
-    x_name = categorical(images_list1.name);
+    x_name = categorical(images_list.name);
     x_name = reordercats(x_name);
-    y_savings_per_photos_saturated = zeros(39,5);
+    
+    result_struct.savings_brightness_distorted = result_struct.savings_brightness_distorted / 1000;
+    result_struct.savings_brightness_saturated = result_struct.savings_brightness_saturated / 1000; %they are the  same
+      
+    fig_bar5 = figure;
+    
+    fig_bar5 = bar(x_name, result_struct.savings_brightness_saturated);
+    l = cell(1,5);
+    l{1}='10V'; l{2}='11V'; l{3}='12V'; l{4}='13V'; l{5}='14V';
+    legend(fig_bar5,l);
+    ylabel('SAVINGS  [W]');
+    title('POWER SAVINGS BRIGHTNESS SCALING SATURATED DVS');
+    %save image
+    ax = gca;
+    saving_path = strcat(folder, 'power_savings_brightness_scaling_', name_list, '.jpg');
+    exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
-
-    for k = 1 : length(images_list1.dir)
-        y_savings_per_photos_saturated(k) = double(images_list1.savings_brightness_scaling_saturated(k).transf);
-    end
-
-
-    %%
-    %fig_bar5 = figure;
-    %y_custom_total = [y_power_cons_custom1 ; y_power_cons_custom5 ; y_power_cons_custom10];
-   % ylabel('POWER SAVINGS');
-   % fig_bar5 = bar(x_name, images_list1.savings_brightness_scaling_saturated.transf);
-   % l = cell(1,5);
-    %l{1}='10V'; l{2}='11V'; l{3}='12V'; l{4}='13V'; l{5}='14V';
-    %legend(fig_bar5,l);
-   % ylabel('SAVINGS DVS BRIGHTNESS SCALING COMPENSATION');
-    %ax = gca;
-    %plot(fig_bar5);
-    %saving_path = strcat(folder, 'power_savings_brightness_scaling_', name_list, '.jpg');
-    %exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
-
-%end
+end

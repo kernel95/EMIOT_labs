@@ -1,4 +1,4 @@
-function structure1 = auto_transf_list1(images_list1)
+function [structure1,results_struct] = auto_transf_list1(images_list1)
 
 % Constant Parameters
 p1 = +4.251e-5;
@@ -14,6 +14,11 @@ DISTORTED = 2;
 images_list1.name = strings(1, length(images_list1.dir)); 
 images_list1.original_power = zeros(1, length(images_list1.dir));   
 
+results = struct;
+results.savings_brightness_saturated = zeros(39, 5);
+results.savings_brightness_distorted = zeros(39, 5);
+results.distortion_brightness_saturated = zeros(39,5);
+results.distortion_brightness_distorted = zeros(39,5);
 
 %loop for each image in the folder
     for k = 1 : length(images_list1.dir)
@@ -47,6 +52,8 @@ images_list1.original_power = zeros(1, length(images_list1.dir));
             %evaluate savings
             images_list1.savings_DVS_only_saturated(k).transf(index) = double(images_list1.Ppanel_original(k) - images_list1.Ppanel_image_original_saturated(k).transf(index).power_panel);
             images_list1.savings_DVS_only_distorted(k).transf(index) = double(images_list1.Ppanel_original(k) - images_list1.Ppanel_image_original_distorted(k).transf(index).power_panel);
+            results.savings_brightness_saturated(k, index) = double(images_list1.Ppanel_original(k) - images_list1.Ppanel_image_original_saturated(k).transf(index).power_panel);
+            results.savings_brightness_distorted(k, index) = double(images_list1.Ppanel_original(k) - images_list1.Ppanel_image_original_distorted(k).transf(index).power_panel);
             %evaluate distortion
             images_list1.differnce_DVS_only_saturated(k).transf(index) = double(image_difference(image, temp_image_saturated));
             images_list1.distortion_DVS_only_saturated(k).transf(index) = double(distortion(images_list1.differnce_DVS_only_saturated(k).transf(index), image));
@@ -112,12 +119,12 @@ images_list1.original_power = zeros(1, length(images_list1.dir));
      
             index = index + 1;
             
-            Vdd_mod
+            %Vdd_mod
 
         end
 
     end
-    
+    results_struct = results;
     %return the struct
     structure1 = images_list1;
 

@@ -11,6 +11,7 @@ name1 = "misc";
 %name3 = "screenshots";
 
 images_list1 = struct;
+result_struct = struct;
 %images_list2 = struct;
 %images_list3 = struct;
 
@@ -21,12 +22,12 @@ images_list1.dir= dir(fullfile("../misc/*.tiff")); %39 images
 
 
 %chiamo script auto
-images_list1 = auto_transf_list1(images_list1);
+[images_list1, result_struct] = auto_transf_list1(images_list1);
 %images_list2 = auto_transf_list2(images_list2);
 %images_list3 = auto_transf_list3(images_list3);
 
 %%
 %produce graphs
-%bar_brightness_scaling(images_list1, name1);
+bar_brightness_scaling(images_list1,result_struct, name1);
 
 
