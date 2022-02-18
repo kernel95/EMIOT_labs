@@ -1,4 +1,4 @@
-function [structure1,results_struct] = auto_transf_list1(images_list3)
+function [structure1,results_struct] = auto_transf_list3(images_list3)
 
 % Constant Parameters
 p1 = +4.251e-5;
@@ -16,25 +16,25 @@ images_list3.original_power = zeros(1, length(images_list3.dir));
 
 results = struct;
 %array for results
-results.savings_nocomp_saturated = zeros(39, 5);
-results.savings_nocomp_distorted = zeros(39, 5);
-results.distortion_nocomp_saturated = zeros(39,5);
-results.distortion_nocomp_distorted = zeros(39,5);
+results.savings_nocomp_saturated = zeros(5, 5);
+results.savings_nocomp_distorted = zeros(5, 5);
+results.distortion_nocomp_saturated = zeros(5,5);
+results.distortion_nocomp_distorted = zeros(5,5);
 
-results.savings_brightness_saturated = zeros(39, 5);
-results.savings_brightness_distorted = zeros(39, 5);
-results.distortion_brightness_saturated = zeros(39,5);
-results.distortion_brightness_distorted = zeros(39,5);
+results.savings_brightness_saturated = zeros(5, 5);
+results.savings_brightness_distorted = zeros(5, 5);
+results.distortion_brightness_saturated = zeros(5,5);
+results.distortion_brightness_distorted = zeros(5,5);
 
-results.savings_contrast_saturated = zeros(39, 5);
-results.savings_contrast_distorted = zeros(39, 5);
-results.distortion_contrast_saturated = zeros(39,5);
-results.distortion_contrast_distorted = zeros(39,5);
+results.savings_contrast_saturated = zeros(5, 5);
+results.savings_contrast_distorted = zeros(5, 5);
+results.distortion_contrast_saturated = zeros(5,5);
+results.distortion_contrast_distorted = zeros(5,5);
 
-results.savings_combined_saturated = zeros(39, 5);
-results.savings_combined_distorted = zeros(39, 5);
-results.distortion_combined_saturated = zeros(39,5);
-results.distortion_combined_distorted = zeros(39,5);
+results.savings_combined_saturated = zeros(5, 5);
+results.savings_combined_distorted = zeros(5, 5);
+results.distortion_combined_saturated = zeros(5,5);
+results.distortion_combined_distorted = zeros(5,5);
 
 
 index2 = 1;

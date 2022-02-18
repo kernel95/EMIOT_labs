@@ -18,7 +18,7 @@ function bar_graph_savings(images_list,result_struct, name_list)
     l{1}='10V'; l{2}='11V'; l{3}='12V'; l{4}='13V'; l{5}='14V';
     legend(fig_bar5,l);
     ylabel('SAVINGS  [W]');
-    title('POWER SAVINGS COMBINED SATURATED DVS');
+    title('POWER SAVINGS COMBINED AND DVS');
     %save image
     ax = gca;
     saving_path = strcat(folder, 'power_savings_combined_', name_list, '.jpg');
