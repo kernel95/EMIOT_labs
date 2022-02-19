@@ -8,8 +8,8 @@ function bar_graph_distortion(images_list,result_struct, name_list)
     x_name = categorical(images_list.name);
     x_name = reordercats(x_name);
     
-    result_struct = result_struct / 1000;
-    result_struct = result_struct / 1000; %they are the  same
+    result_struct = result_struct / 100;
+    result_struct = result_struct / 100; %they are the  same
       
     fig_bar5 = figure;
     

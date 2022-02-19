@@ -62,8 +62,8 @@ index2 = 1;
             b = (100 - ((100*Vdd_mod)/Vdd))/100; %calculation of b
 
             %ORIGINAL ONLY DVS
-            temp_image_saturated = displayed_image(images_list2.IPanel_original(k).Ipanel,Vdd,SATURATED);
-            temp_image_distorted = displayed_image(images_list2.IPanel_original(k).Ipanel,Vdd,DISTORTED);
+            temp_image_saturated = displayed_image(images_list2.IPanel_original(k).Ipanel,Vdd_mod,SATURATED);
+            temp_image_distorted = displayed_image(images_list2.IPanel_original(k).Ipanel,Vdd_mod,DISTORTED);
             %evaluate power
             images_list2.Ppanel_image_original_saturated(k).transf(index).power_panel = Ppanel(images_list2.IPanel_original(k).Ipanel, Vdd_mod, temp_image_saturated);
             images_list2.Ppanel_image_original_distorted(k).transf(index).power_panel = Ppanel(images_list2.IPanel_original(k).Ipanel, Vdd_mod, temp_image_distorted);
@@ -87,8 +87,8 @@ index2 = 1;
             image_brightness_scaling = brightness_scaling(image,b); %come gestiamo b? 15% compensare
             images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel = Ipanel(image_brightness_scaling,Vdd_mod);
             %apply DVS
-            temp_image_saturated = displayed_image(images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel,Vdd,SATURATED);
-            temp_image_distorted = displayed_image(images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel,Vdd,DISTORTED);
+            temp_image_saturated = displayed_image(images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel,Vdd_mod,SATURATED);
+            temp_image_distorted = displayed_image(images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel,Vdd_mod,DISTORTED);
             %evaluate power
             images_list2.Ppanel_brightness_scaling_saturated(k).transf(index).power_panel = Ppanel(images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel,Vdd_mod, temp_image_saturated);
             images_list2.Ppanel_brightness_scaling_distorted(k).transf(index).power_panel = Ppanel(images_list2.Ipanel_brightness_scaling(k).transf(index).Ipanel,Vdd_mod, temp_image_distorted);
@@ -111,8 +111,8 @@ index2 = 1;
             image_contrast_enhancement = contrast_enhancement(image,b);
             images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel = Ipanel(image_contrast_enhancement, Vdd_mod);
             %apply DVS
-            temp_image_saturated = displayed_image(images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel,Vdd,SATURATED);
-            temp_image_distorted = displayed_image(images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel,Vdd,DISTORTED);
+            temp_image_saturated = displayed_image(images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel,Vdd_mod,SATURATED);
+            temp_image_distorted = displayed_image(images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel,Vdd_mod,DISTORTED);
             %evaluate power
             images_list2.Ppanel_contrast_enhancement_saturated(k).transf(index).power_panel = Ppanel(images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel, Vdd_mod, temp_image_saturated);
             images_list2.Ppanel_contrast_enhancement_distorted(k).transf(index).power_panel = Ppanel(images_list2.Ipanel_contrast_enhancement(k).transf(index).Ipanel, Vdd_mod, temp_image_distorted);
@@ -135,8 +135,8 @@ index2 = 1;
             image_combined = brightnessContrast(image,b,Vdd,Vdd_mod);
             images_list2.Ipanel_combined(k).transf(index).Ipanel = Ipanel(image_combined, Vdd_mod);
             %apply DVS
-            temp_image_saturated = displayed_image(images_list2.Ipanel_combined(k).transf(index).Ipanel,Vdd,SATURATED);
-            temp_image_distorted = displayed_image(images_list2.Ipanel_combined(k).transf(index).Ipanel,Vdd,DISTORTED);
+            temp_image_saturated = displayed_image(images_list2.Ipanel_combined(k).transf(index).Ipanel,Vdd_mod,SATURATED);
+            temp_image_distorted = displayed_image(images_list2.Ipanel_combined(k).transf(index).Ipanel,Vdd_mod,DISTORTED);
             %evaluate power
             images_list2.Ppanel_combined_saturated(k).transf(index).power_panel = Ppanel(images_list2.Ipanel_combined(k).transf(index).Ipanel, Vdd_mod, temp_image_saturated);
             images_list2.Ppanel_combined_distorted(k).transf(index).power_panel = Ppanel(images_list2.Ipanel_combined(k).transf(index).Ipanel, Vdd_mod, temp_image_distorted);
