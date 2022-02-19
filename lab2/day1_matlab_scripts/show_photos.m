@@ -5,7 +5,7 @@ image = imread("misc\4.2.05.tiff");
 
 figure0 = figure;
 imshow(image);
-saveas(figure0, 'figures/Original_photo.jpg');
+saveas(figure0, '../figures_day1/Original_photo.jpg');
 
 
 image_hungry_blue = hungry_blue(image,5);

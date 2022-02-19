@@ -1,5 +1,5 @@
 function best_manipulation_under_constraint(distortion_constraint, images_list, name_list)
-    folder = "../figures";
+    folder = "../figures_day1/";
 
     k_image_blue1 = 0;
     k_image_blue5 = 0;

@@ -79,8 +79,8 @@ index2 = 1;
             images_list3.differnce_DVS_only_distorted(k).transf(index) = double(image_difference(image, temp_image_distorted));
             images_list3.distortion_DVS_only_distorted(k).transf(index) = double(distortion(images_list3.differnce_DVS_only_distorted(k).transf(index), image));
             %
-            results.distortion_nocomp_saturated(k) = double(distortion(images_list3.differnce_DVS_only_saturated(k).transf(index), image));
-            results.distortion_nocomp_distorted(k) = double(distortion(images_list3.differnce_DVS_only_distorted(k).transf(index), image));
+            results.distortion_nocomp_saturated(k, index) = double(distortion(images_list3.differnce_DVS_only_saturated(k).transf(index), image));
+            results.distortion_nocomp_distorted(k, index) = double(distortion(images_list3.differnce_DVS_only_distorted(k).transf(index), image));
 
             %COMEPNSATIONS
             %apply Brightness compensation
@@ -104,8 +104,8 @@ index2 = 1;
             images_list3.differnce_brightness_scaling_distorted(k).transf(index) = double(image_difference(image, temp_image_distorted));
             images_list3.distortion_brightness_scaling_distorted(k).transf(index) = double(distortion(images_list3.differnce_brightness_scaling_distorted(k).transf(index), image));
             %
-            results.distortion_brightness_saturated(k) = double(distortion(images_list3.differnce_brightness_scaling_saturated(k).transf(index), image));
-            results.distortion_brightness_distorted(k) = double(distortion(images_list3.differnce_brightness_scaling_distorted(k).transf(index), image));
+            results.distortion_brightness_saturated(k, index) = double(distortion(images_list3.differnce_brightness_scaling_saturated(k).transf(index), image));
+            results.distortion_brightness_distorted(k, index) = double(distortion(images_list3.differnce_brightness_scaling_distorted(k).transf(index), image));
 
             %apply contrast enhancement
             image_contrast_enhancement = contrast_enhancement(image,b);
@@ -120,16 +120,16 @@ index2 = 1;
             images_list3.savings_contrast_enhancement_saturated(k).transf(index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_contrast_enhancement_saturated(k).transf(index).power_panel);
             images_list3.savings_contrast_enhancement_distorted(k).transf(index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_contrast_enhancement_distorted(k).transf(index).power_panel);
             %
-            results.savings_contrast_saturated(k) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_contrast_enhancement_saturated(k).transf(index).power_panel);
-            results.savings_contrast_distorted(k) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_contrast_enhancement_distorted(k).transf(index).power_panel);
+            results.savings_contrast_saturated(k, index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_contrast_enhancement_saturated(k).transf(index).power_panel);
+            results.savings_contrast_distorted(k, index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_contrast_enhancement_distorted(k).transf(index).power_panel);
             %evaluate distortion
             images_list3.differnce_contrast_enhancement_saturated(k).transf(index) = double(image_difference(image, temp_image_saturated));
             images_list3.distortion_contrast_enhancement_saturated(k).transf(index) = double(distortion(images_list3.differnce_contrast_enhancement_saturated(k).transf(index), image));
             images_list3.differnce_contrast_enhancement_distorted(k).transf(index) = double(image_difference(image, temp_image_distorted));
             images_list3.distortion_contrast_enhancement_distorted(k).transf(index) = double(distortion(images_list3.differnce_contrast_enhancement_distorted(k).transf(index), image));            
             %
-            results.distortion_contrast_saturated(k) = double(distortion(images_list3.differnce_contrast_enhancement_saturated(k).transf(index), image));
-            results.distortion_contrast_distorted(k) = double(distortion(images_list3.differnce_contrast_enhancement_distorted(k).transf(index), image));
+            results.distortion_contrast_saturated(k, index) = double(distortion(images_list3.differnce_contrast_enhancement_saturated(k).transf(index), image));
+            results.distortion_contrast_distorted(k, index) = double(distortion(images_list3.differnce_contrast_enhancement_distorted(k).transf(index), image));
 
             %apply combined compensation
             image_combined = brightnessContrast(image,b,Vdd,Vdd_mod);
@@ -143,16 +143,16 @@ index2 = 1;
             %evaluate savings
             images_list3.savings_combined_saturated(k).transf(index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_combined_saturated(k).transf(index).power_panel);
             images_list3.savings_combined_distorted(k).transf(index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_combined_distorted(k).transf(index).power_panel);
-            results.savings_combined_saturated(k) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_combined_saturated(k).transf(index).power_panel);
-            results.savings_combined_distorted(k) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_combined_distorted(k).transf(index).power_panel);
+            results.savings_combined_saturatedv = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_combined_saturated(k).transf(index).power_panel);
+            results.savings_combined_distorted(k, index) = double(images_list3.Ppanel_original(k) - images_list3.Ppanel_combined_distorted(k).transf(index).power_panel);
             %evaluate distortion
             images_list3.differnce_combined_saturated(k).transf(index) = double(image_difference(image, temp_image_saturated));
             images_list3.distortion_combined_saturated(k).transf(index) = double(distortion(images_list3.differnce_combined_saturated(k).transf(index), image));
             images_list3.differnce_combined_distorted(k).transf(index) = double(image_difference(image, temp_image_distorted));
             images_list3.distortion_combined_distorted(k).transf(index) = double(distortion(images_list3.differnce_combined_distorted(k).transf(index), image));
             %
-            results.distortion_combined_saturated(k) = double(distortion(images_list3.differnce_combined_saturated(k).transf(index), image));
-            results.distortion_combined_distorted(k) = double(distortion(images_list3.differnce_combined_distorted(k).transf(index), image));
+            results.distortion_combined_saturated(k, index) = double(distortion(images_list3.differnce_combined_saturated(k).transf(index), image));
+            results.distortion_combined_distorted(k, index) = double(distortion(images_list3.differnce_combined_distorted(k).transf(index), image));
      
             index = index + 1;
             

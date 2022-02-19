@@ -1,4 +1,4 @@
-function bar_graph_savings(images_list,result_struct, name_list)
+function bar_graph_distortion(images_list,result_struct, name_list)
 
     
     folder = "../figures_day2/";
@@ -17,11 +17,11 @@ function bar_graph_savings(images_list,result_struct, name_list)
     l = cell(1,5);
     l{1}='10V'; l{2}='11V'; l{3}='12V'; l{4}='13V'; l{5}='14V';
     legend(fig_bar5,l);
-    ylabel('SAVINGS  [W]');
-    title('POWER SAVINGS ONLY VDS');
+    ylabel('DISTORTION');
+    title('DISTORTION DVS ONLY');
     %save image
     ax = gca;
-    saving_path = strcat(folder, 'power_savings_DVS_ONLY_', name_list, '.jpg');
+    saving_path = strcat(folder, 'distortion_DVS_ONLY_', name_list, '.jpg');
     exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
 end

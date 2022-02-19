@@ -1,6 +1,6 @@
 function bar_histo_eq(images_list, name_list)
 
-    folder = "../figures";
+    folder = "../figures_day1";
 
     x_name = strings(1, length(images_list));
 
