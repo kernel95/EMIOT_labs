@@ -33,8 +33,10 @@ transmit_pulse = (transmit_time * 100)/period;
 % simulation length
 sim_length = Gmonth(size(Gmonth, 1),1);
 
-%%
-% producing curves from datasheets
-image = imread("PVcell\datasheet.bmp");
-digitizer();
+
+
+
+
+
+
 

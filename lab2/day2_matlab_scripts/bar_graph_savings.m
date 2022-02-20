@@ -18,10 +18,10 @@ function bar_graph_savings(images_list,result_struct, name_list)
     l{1}='10V'; l{2}='11V'; l{3}='12V'; l{4}='13V'; l{5}='14V';
     legend(fig_bar5,l);
     ylabel('SAVINGS  [W]');
-    title('POWER SAVINGS ONLY VDS');
+    title('POWER SAVINGS BRIGHTNESS SCALING AND DVS');
     %save image
     ax = gca;
-    saving_path = strcat(folder, 'power_savings_DVS_ONLY_', name_list, '.jpg');
+    saving_path = strcat(folder, 'power_brightness_', name_list, '.jpg');
     exportgraphics(ax, saving_path, 'resolution',600); %remember to change name to specify the list
 
 end
