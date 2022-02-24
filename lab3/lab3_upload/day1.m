@@ -45,4 +45,11 @@ I_1000 = MPP_pvcell_1000 / V_1000;
 I = [I_250; I_500; I_750; I_1000];          % Vector of corresponding values of current at the MPP
 V = [V_250; V_500; V_750; V_1000];          % Vector of corresponding values of voltage at the MPP
 
+%% model DC-DC converter of PV module
+
+load('efficiency_pv_dcdc.mat');
+efficiency_x = efficiency_pv_dcdc(:,1);
+efficiency_y = efficiency_pv_dcdc(:,2);
+
+
 
