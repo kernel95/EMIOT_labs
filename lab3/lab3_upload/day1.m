@@ -4,6 +4,7 @@ clc
 
 %% load the matrices of pvcell
 
+load("gmonths.mat");
 load('pvcell_250.mat' );
 load('pvcell_500.mat' );
 load('pvcell_750.mat' );
