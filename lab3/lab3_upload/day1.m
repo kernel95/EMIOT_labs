@@ -52,4 +52,31 @@ efficiency_x = efficiency_pv_dcdc(:,1);
 efficiency_y = efficiency_pv_dcdc(:,2);
 
 
+%% DC-DC converter of battery
+load('batterydcdc.mat');
+
+%% Battery model
+load("battery_1C.mat");
+load("battery_2C.mat");
+
+% interpolate the datasets
+newX = (0:0.1:1);
+
+battery_SOC_1 = interp1(battery_1C(:,1), battery_1C(:,2), newX);
+battery_SOC_2 = interp1(battery_2C(:,1), battery_2C(:,2), newX);
+% battery_SOC_1 = battery_SOC_1(2:10);
+% battery_SOC_2 = battery_SOC_2(2:10);
+
+Icurve_1 = 3.2 ; % 1C = 3200mAh
+Icurve_2 = 6.4;  % 2C = 6400mAh
+
+R = (battery_SOC_1(:, 2) - battery_SOC_2(:, 2)) ./ (Icurve_2 - Icurve_1);
+V_oc = battery_SOC_2(:, 2) + R*Icurve_2;
+
+
+
+
+
+
+
 
