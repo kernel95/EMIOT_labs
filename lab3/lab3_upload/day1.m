@@ -81,3 +81,4 @@ V_oc = battery_SOC_2(:, 2) + R*Icurve_2;
 
 
 
+
