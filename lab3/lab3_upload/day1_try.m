@@ -70,8 +70,8 @@ SOC_1_interpolated = SOC_1_interpolated(2:10);
 SOC_2_interpolated = interp1(battery_2C(:,1), battery_2C(:,2), x_new);
 SOC_2_interpolated = SOC_2_interpolated(2:10);
 
-load('nico_soc1_interpolated.mat');
-load('nico_soc2_interpolated.mat');
+load('soc1_interpolated.mat');
+load('soc2_interpolated.mat');
 
 %%
 
