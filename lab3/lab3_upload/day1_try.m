@@ -80,7 +80,7 @@ I_2 = 6.4;  %2C = 6400mAh
 
 x_new = x_new(2:10);
 R = (SOC_1_interpolated - SOC_2_interpolated) / (I_2-I_1);
-V_oc = SOC_2_interpolated + R_V_soc * I_2;
+V_oc = SOC_2_interpolated + R * I_2;
 
 %R and V interpolation with Curve Fitting
 %call the curve fitting app
